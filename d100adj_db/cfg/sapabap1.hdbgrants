@@ -1,0 +1,16 @@
+{
+	"ServiceName_1": {
+		"object_owner": {
+			"roles": [
+				"TAX4B_DATASOURCE_ACCESS_GRANTABLE"
+			]
+		},
+
+		"application_user": {
+			"roles": [
+				"TAX4B_DATASOURCE_ACCESS"
+			]
+
+		}
+	}
+}

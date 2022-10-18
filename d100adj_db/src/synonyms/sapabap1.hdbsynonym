@@ -1,0 +1,26 @@
+{
+  "adejo.view::/TMF/V_EMP_FED": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/EMPRESA_FEDERAL",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.table::/TMF/D_ESTABELEC": {
+    "target": {
+      "object": "/TMF/D_ESTABELEC",
+      "schema": "SAPABAP1"
+    }
+  },
+  "adejo.view::/TMF/V_NF_DOC": {
+    "target": {
+      "object": "sap.glo.tmflocbr.ctr/NF_DOCUMENTO",
+      "schema": "_SYS_BIC"
+    }
+  },
+  "adejo.table::/TMF/D_NF_DOC": {
+    "target": {
+      "object": "/TMF/D_NF_DOC",
+      "schema": "SAPABAP1"
+    }
+  }
+}

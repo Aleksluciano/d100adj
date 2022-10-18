@@ -1,0 +1,38 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"routes": [{
+		"source": "/d100/node(.*)",
+		"destination": "core-backend",
+		"target": "/node",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/d100/data(.*)",
+		"destination": "core-backend",
+		"target": "/data",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/d100/change(.*)",
+		"destination": "core-backend",
+		"target": "/change",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/d100_ui_dest/(.*)$",
+		"localDir": "resources",
+		"authenticationType": "xsuaa",
+		"target": "$1"
+	}, {
+		"source": "/(.*)",
+		"localDir": "resources",
+		"authenticationType": "xsuaa",
+		"replace": {
+			"pathSuffixes": [
+				"index.html"
+			],
+			"vars": ["sapui5url"]
+		}
+	}]
+}

@@ -1,0 +1,46 @@
+{
+	"sap.app": {
+		"id": "d100adj_ui",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"d100adj_uiShow": {
+					"title": "d100adj_ui",
+					"icon": "sap-icon://share-2",
+					"semanticObject": "d100adj_ui",
+					"action": "show",
+					"deviceTypes": {
+						"desktop": true,
+						"tablet": true,
+						"phone": true
+					}
+				}
+			},
+			"outbounds": {}
+		}
+	},
+	"sap.ui5": {
+		"_version": "1.2.0",
+		"componentName": "d100adj_ui",
+		"rootView": {
+			"viewName": "d100adj_ui.Page",
+			"type": "XML",
+			"async": true
+		},
+		"dependencies": {
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		}
+
+	},
+	"sap.platform.cf": {},
+	"sap.platform.runtime": {
+		"componentProperties": {
+			"url": "/"
+		}
+	}
+}

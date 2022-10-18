@@ -1,0 +1,26 @@
+.disabled input{
+ pointer-events: none;
+ color: transparent;
+ text-shadow: 0 0 0 gray;
+}
+
+.checkBoxMargin{
+		margin-left:2.5em;
+		margin-bottom:1.5em;
+		margin-top:1.5em;
+}
+
+.uploadFileMargin{
+	margin-left:2.8em;
+}
+
+.uploadFileMarginButton{
+	margin-left:3.4em;
+}
+
+.uploadFileMarginLabel{
+	margin-left:3.2em;
+}
+
+.textColor[data-mydata="Simulado"] { color:blue !important; }
+.textColor[data-mydata="Processado"] { color:green !important; }

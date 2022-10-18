@@ -1,0 +1,14 @@
+{
+	"name": "d100adj_ui-approuter",
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"dependencies": {
+		"@sap/approuter": "9.1.0",
+		"@sap/site-app-server": "1.9.x"
+	},
+	"scripts": {
+		"start": "node node_modules/@sap/site-app-server/index.js",
+		"dontstart": "node node_modules/@sap/approuter/approuter.js"
+	}
+}

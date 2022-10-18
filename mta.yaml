@@ -1,0 +1,104 @@
+ID: d100adj
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: d100adj_ui
+   type: html5
+   path: d100adj_ui
+   provides:
+     - name: d100_ui_dest
+       public: true
+       properties:
+         url: '${default-url}'
+   properties:
+     CORS:
+       - uriPattern: .
+         allowedMethods:
+           - GET
+           - POST
+         allowedOrigin:
+           - host: '*'
+     SAP_JWT_TRUST_ACL:
+       - clientid: '*'
+         identityzone: '*'
+   requires:
+     - name: flp-adejopad-d100-client
+     - name: d100-UAA-service
+     - name: d100adj_server_api
+       group: destinations
+       properties:
+         name: core-backend
+         url: '~{url}'
+         forwardAuthToken: true
+     - name: sapui5-provider
+       properties:
+         sapui5url: '~{url}'
+ - name: d100adj_db
+   type: hdb
+   path: d100adj_db
+   requires:
+    - name: hdi_d100adj_db
+      properties:
+        TARGET_CONTAINER: ~{hdi-container-name}
+
+    - name: cross-container-service-1
+      group: SERVICE_REPLACEMENTS
+
+      properties:
+        key: ServiceName_1
+        service: ~{the-service-name}
+                          
+
+
+
+ - name: d100adj_server
+   type: nodejs
+   path: d100adj_server
+   provides:
+     - name: d100adj_server_api
+       public: true
+       properties:
+          url: ${default-url}
+   properties:
+     CORS:
+       - uriPattern: .
+         allowedMethods:
+           - GET
+           - POST
+         allowedOrigin:
+           - host: '*'
+     SAP_JWT_TRUST_ACL:
+       - clientid: '*'
+         identityzone: '*'
+   requires:
+     - name: d100-UAA-service
+     - name: hdi_d100adj_db
+resources:
+ - name: d100-UAA-service
+   type: com.sap.xs.uaa-space
+ - name: hdi_d100adj_db
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
+
+ - name: cross-container-service-1
+   parameters:
+      service-name: CROSS_SCHEMA_ACCESS
+   properties:
+      the-service-name: ${service-name}
+   type: org.cloudfoundry.existing-service
+   
+   
+ - name: flp-adejopad-d100-client
+   type: com.sap.portal.site-content
+   parameters:
+     config:
+       siteId: adejopad
+       
+ - name: sapui5-provider
+   parameters:
+     provider-id: 'com.sap.ui5.dist.sapui5-dist-xsa.XSAC_UI5_FESV6:sapui5_fesv6'
+     version: '>=1.60.0'
+     provider-nid: mta
+   type: configuration

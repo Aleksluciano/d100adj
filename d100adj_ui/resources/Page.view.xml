@@ -1,0 +1,95 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns="sap.m" displayBlock="true" controllerName="d100adj_ui.Page">
+	<Shell>
+		<App>
+			<pages>
+				<Page title="D100" titleLevel="H1" showHeader="true" class="sapUiContentPadding">
+					<Panel width="auto" class="sapUiResponsiveMargin">
+						<content>
+							<HBox justifyContent="SpaceAround">
+								<VBox>
+									<Label required="true" text="Empresa:" labelFor="input-company"/>
+										<ComboBox change=".changeCompany()" id="input-company"  selectedKey="{/SelectedCompany}"
+										items="{ path: '/CompanyCollection', sorter: { path: 'Name' } }">
+										<core:Item key="{Id}" text="{Name}"/>
+									</ComboBox>
+								</VBox>
+								<VBox>
+									<Label required="true" text="De Estab:" labelFor="input-branch"/>
+									<ComboBox id="input-brancha" selectedKey="{/SelectedBranch}"
+										items="{ path: '/BranchCollection', sorter: { path: 'Name' } }">
+										<core:Item key="{Id}" text="{Name}"/>
+									</ComboBox>
+								</VBox>
+								<VBox>
+									<Label required="true" text="Até Estab:" labelFor="input-branch"/>
+									<ComboBox id="input-branchz"  selectedKey="{/SelectedBranch2}"
+										items="{ path: '/BranchCollection2', sorter: { path: 'Name' } }">
+										<core:Item key="{Id}" text="{Name}"/>
+									</ComboBox>
+								</VBox>
+								<VBox>
+									<Label required="true" text='Período:' labelFor="DP10"/>
+									<DatePicker  id="DP10" value="{/SelectedPeriod}"  displayFormat="MM-y" change="handleChange" class="sapUiSmallMarginBottom disabled"/>
+								</VBox>
+							</HBox>
+							<l:VerticalLayout>
+								<Label required="true" text="Arquivo .csv:" labelFor="input-csv" class="uploadFileMarginLabel"/>
+							<l:content>
+							    <u:FileUploader sameFilenameAllowed="true" class="uploadFileMargin" id="fileUploader" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete" fileType="csv"/>
+							</l:content>
+															<Button text="Upload" press="handleUploadPress" class="uploadFileMarginButton"/>
+							</l:VerticalLayout>
+							<VBox>
+								<CheckBox class="checkBoxMargin" text="Simulação" selected="{/Simulation}"/>
+							</VBox>
+						</content>
+					</Panel>
+			
+					<Table items="{ path: '/CSV'}" id="tableCSV">
+				
+						<columns>
+							<Column width="12em">
+								<Text text="Chave"/>
+							</Column>
+							<Column width="12em">
+								<Text text="Cod.Mun.Remetente"/>
+							</Column>
+							<Column width="12em">
+								<Text text="Cod.Mun.Destinatário"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{chave}"/>
+								</cells>
+								<cells>
+									<Text text="{remetente}"/>
+								</cells>
+								<cells>
+									<Text text="{destinatario}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					<l:VerticalLayout class="sapUiContentPadding" width="100%">
+						<l:dependents>
+							<core:Fragment fragmentName="d100adj_ui.TableDialog" type="XML"/>
+						</l:dependents>
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiContentPadding" width="100%">
+						<l:dependents>
+							<core:Fragment fragmentName="d100adj_ui.BusyDialog" type="XML"/>
+						</l:dependents>
+					</l:VerticalLayout>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button type="Emphasized" text="Gerar" press="onPress"/>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

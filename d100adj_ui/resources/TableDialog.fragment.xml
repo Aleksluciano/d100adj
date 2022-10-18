@@ -1,0 +1,85 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="TableDialog" title="CTE's" rightButton=".close">
+		<Table items="{ path: '/CTE'}" id="tableCte">
+			<columns >
+				<Column >
+					<Text text="EMPRESA"/>
+				</Column>
+				<Column >
+					<Text text="FILIAL"/>
+				</Column>
+				<Column >
+					<Text text="NF_ID"/>
+				</Column>
+				<Column >
+					<Text text="NUM_DOC"/>
+				</Column>
+				<Column >
+					<Text text="DT_E_S"/>
+				</Column>
+				<Column >
+					<Text text="CHV_CTE"/>
+				</Column>
+				<Column >
+					<Text text="MUN_ORIG"/>
+				</Column>
+				<Column >
+					<Text text="MUN_DEST"/>
+				</Column>
+				<Column >
+					<Text text="MUN_ORIG_NOVO"/>
+				</Column>
+				<Column >
+					<Text text="MUN_DEST_NOVO"/>
+				</Column>
+				<Column >
+					<Text text="STATUS"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem >
+					<cells>
+						<Text text="{EMPRESA}"/>
+					</cells>
+					<cells>
+						<Text text="{FILIAL}"/>
+					</cells>
+					<cells>
+						<Text text="{NF_ID}"/>
+					</cells>
+					<cells>
+						<Text text="{NUM_DOC}"/>
+					</cells>
+					<cells>
+						<Text text="{DT_E_S}"/>
+					</cells>
+					<cells>
+						<Text text="{CHV_CTE}"/>
+					</cells>
+					<cells>
+						<Text text="{COD_MUN_ORIG}"/>
+					</cells>
+					<cells>
+						<Text text="{COD_MUN_DEST}"/>
+					</cells>
+					<cells>
+						<Text text="{COD_MUN_ORIG_NOVO}"/>
+					</cells>
+					<cells>
+						<Text text="{COD_MUN_DEST_NOVO}"/>
+					</cells>
+					<cells>
+						<Text text="{STATUS}" id="status" class="textColor">
+							<customData>
+								<core:CustomData key="mydata" value="{STATUS}" writeToDom="true"/>
+							</customData>
+						</Text>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<buttons>
+			<Button text="Fechar" width="230px" press=".onClose"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
