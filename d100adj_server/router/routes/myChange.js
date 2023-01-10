@@ -11,7 +11,7 @@ module.exports = () => {
 	var app = express.Router();
 
 	//HANA DB Client 
-	app.post("/", async(req, res) => {
+	app.post("/", async (req, res) => {
 
 		const {
 			company,
@@ -22,7 +22,7 @@ module.exports = () => {
 			csv
 		} = req.body;
 		const period1 = period.slice(6) + period.slice(3, 5) + '01';
-		const newdate = new Date(period.slice(6), Number(period.slice(3, 5)) + 1, 0);
+		const newdate = new Date(period.slice(6), parseInt(period.slice(3, 5)), 0);
 		const period2 = period.slice(6) + period.slice(3, 5) + newdate.getDate().toString();
 
 		//validações
@@ -66,7 +66,7 @@ module.exports = () => {
 
 			const columns_d_nf_doc = await client.exec(query_select_columns_table);
 			const columns_v_nf_doc = await client.exec(query_select_columns_view);
-		
+
 			const arrayColumnValue = [];
 			for (const col of columns_d_nf_doc) {
 				const col_exist = columns_v_nf_doc.find(a => a.COLUMN_NAME == col.COLUMN_NAME);
@@ -74,7 +74,7 @@ module.exports = () => {
 					arrayColumnValue.push(`"${col.COLUMN_NAME}"`);
 				}
 			}
-		
+
 			if (!arrayColumnValue.includes('"MANDT"') || !arrayColumnValue.includes('"NF_ID"')) throw Error(
 				'Columns MANDT or NF_ID not found to insert');
 			const columnsjoin = arrayColumnValue.join(', ');
@@ -82,7 +82,7 @@ module.exports = () => {
 			const query_select_v_nf_doc =
 				`SELECT ${columnsjoin} FROM "adejo.view::/TMF/V_NF_DOC" 
 WHERE MANDT = ? AND EMPRESA = ? AND FILIAL BETWEEN ? AND ? AND COD_MOD IN ('57', '63', '67' ) AND DT_E_S BETWEEN ? AND ?`;
-		
+
 			let v_emp_fed_table = await client.exec(query_select_v_emp_fed, [company]);
 			let v_nf_doc_table = await client.exec(query_select_v_nf_doc, [v_emp_fed_table[0].MANDT_TDF, company, branch, branch2, period1,
 				period2
@@ -106,7 +106,8 @@ WHERE MANDT = ? AND EMPRESA = ? AND FILIAL BETWEEN ? AND ? AND COD_MOD IN ('57',
 						STATUS: csv_line ? true : false
 					}
 					item++;
-					resultAll.push({... {
+					resultAll.push({
+						... {
 							item
 						},
 						...update_d_nf_doc
@@ -128,9 +129,9 @@ WHERE MANDT = ? AND EMPRESA = ? AND FILIAL BETWEEN ? AND ? AND COD_MOD IN ('57',
 							v_nf_doc.COD_MUN_ORIG = csv_line.remetente;
 							v_nf_doc.COD_MUN_DEST = csv_line.destinatario;
 							let d_nf_doc_updated = await client.exec(query_update_d_nf_doc, [v_nf_doc.COD_MUN_ORIG, v_nf_doc.COD_MUN_DEST, v_nf_doc.MANDT,
-								v_nf_doc.NF_ID
+							v_nf_doc.NF_ID
 							]);
-	
+
 							if (d_nf_doc_updated == 1) status = true;
 						}
 						const update_d_nf_doc = {
@@ -148,7 +149,8 @@ WHERE MANDT = ? AND EMPRESA = ? AND FILIAL BETWEEN ? AND ? AND COD_MOD IN ('57',
 							STATUS: status
 						}
 						item++;
-						resultAll.push({... {
+						resultAll.push({
+							... {
 								item
 							},
 							...update_d_nf_doc
@@ -173,9 +175,9 @@ WHERE MANDT = ? AND EMPRESA = ? AND FILIAL BETWEEN ? AND ? AND COD_MOD IN ('57',
 							columns = columns.slice(0, columns.length - 1);
 							values = values.slice(0, values.length - 1);
 							const query_insert_d_nf_doc = `INSERT INTO "adejo.table::/TMF/D_NF_DOC" (${columns}) VALUES (${values})`;
-					
+
 							let d_nf_doc_inserted = await client.exec(query_insert_d_nf_doc);
-							if (d_nf_doc_inserted == 1)status = true;
+							if (d_nf_doc_inserted == 1) status = true;
 
 						}
 						const update_d_nf_doc = {
@@ -193,7 +195,8 @@ WHERE MANDT = ? AND EMPRESA = ? AND FILIAL BETWEEN ? AND ? AND COD_MOD IN ('57',
 							STATUS: status
 						}
 						item++;
-						resultAll.push({... {
+						resultAll.push({
+							... {
 								item
 							},
 							...update_d_nf_doc
